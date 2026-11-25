@@ -1,0 +1,908 @@
+/* ==========================================================================
+   TECHNOVA SOLUTIONS - FOLHA DE ESTILOS PRINCIPAL
+   Sprint 2: Otimização, Box Model, Diagramação, Posicionamento e Interatividade
+   ========================================================================== */
+
+/* ==========================================================================
+   1. RESET UNIVERSAL E VARIÁVEIS DO SISTEMA DE DESIGN (Tarefa 2.2)
+   ========================================================================== */
+
+/* Reset Universal e Box-Sizing */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Rolagem Suave Global */
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+/* Paleta de Cores Corporativa e Tipografia da TechNova */
+:root {
+    /* Cores Primárias e de Destaque */
+    --cor-primaria: #2563eb;         /* Azul TechNova */
+    --cor-primaria-dark: #1d4ed8;    /* Azul Profundo */
+    --cor-secundaria: #06b6d4;       /* Ciano Vibrante */
+    --cor-ciano-claro: #38bdf8;      /* Ciano Claro para Destaques e SVGs */
+    --cor-acento-hover: #60a5fa;
+
+    /* Tons Escuros Corporativos */
+    --bg-header: #0f172a;           /* Azul Petróleo Muito Escuro */
+    --bg-escuro-profundo: #090e17;
+    --bg-card-dark: #1e293b;        /* Slate Dark */
+
+    /* Tons Claros e Neutros */
+    --bg-pagina: #f8fafc;           /* Slate 50 - Fundo Geral Limpo */
+    --bg-card: #ffffff;             /* Branco Puro para Cartões */
+    --bg-zebrado: #f1f5f9;          /* Slate 100 para Linhas Zebradas */
+    --bg-hover-tabela: #e0f2fe;     /* Azul Celeste Claro no Hover */
+
+    /* Tipografia e Textos */
+    --fonte-padrao: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --texto-principal: #1e293b;     /* Slate 800 - Leitura Confortável */
+    --texto-secundario: #475569;    /* Slate 600 - Descrições e Parágrafos */
+    --texto-mutado: #64748b;        /* Slate 500 - Legendas e Metadados */
+    --texto-claro: #f8fafc;         /* Slate 50 - Cabeçalhos e Botões */
+
+    /* Bordas e Sombreamentos (Box Model) */
+    --borda-suave: #e2e8f0;
+    --borda-campo: #cbd5e1;
+    --borda-foco: #2563eb;
+    --raio-sm: 6px;
+    --raio-md: 10px;
+    --raio-lg: 16px;
+    --raio-full: 9999px;
+
+    --sombra-card: 0 4px 12px rgba(15, 23, 42, 0.08);
+    --sombra-card-hover: 0 14px 28px rgba(15, 23, 42, 0.16);
+    --sombra-botao: 0 4px 14px rgba(37, 99, 235, 0.35);
+    --sombra-botao-hover: 0 8px 24px rgba(6, 182, 212, 0.45);
+
+    /* Transições Globais */
+    --transicao-rapida: all 0.2s ease;
+    --transicao-media: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tipografia Base do Corpo da Página */
+body {
+    font-family: var(--fonte-padrao);
+    color: var(--texto-principal);
+    background-color: var(--bg-pagina);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Enquadramento Global de Imagens sem Distorção (Tarefa 2.2) */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Estrutura Padronizada das Seções (Box Model) */
+.secao-padrao {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+}
+
+.secao-padrao > h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--bg-header);
+    text-align: center;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.secao-intro {
+    font-size: 1.125rem;
+    color: var(--texto-secundario);
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 3rem auto;
+}
+
+
+/* ==========================================================================
+   2. CABEÇALHO E NAVEGAÇÃO PRINCIPAL (Tarefa 2.3: Sticky, Top & z-index)
+   ========================================================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Permanece sempre sobreposto a qualquer elemento do fluxo */
+    background-color: var(--bg-header);
+    color: var(--texto-claro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+}
+
+/* Logotipo da TechNova (Tarefa 2.1 & 2.4: SVG Inline) */
+.logo a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: var(--texto-claro);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.logo svg {
+    stroke: var(--cor-ciano-claro);
+    fill: rgba(56, 189, 248, 0.15);
+    transition: var(--transicao-media);
+}
+
+.logo a:hover svg {
+    stroke: #ffffff;
+    fill: var(--cor-primaria);
+    transform: scale(1.15) rotate(6deg);
+}
+
+/* Menu de Navegação */
+header nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+header nav a {
+    display: inline-block;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--raio-sm);
+    transition: var(--transicao-rapida);
+}
+
+header nav a:hover {
+    color: var(--cor-ciano-claro);
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* ==========================================================================
+   3. SEÇÃO HERO (Tarefa 2.3: Scroll Snap & Tarefa 2.5: Gradientes e CTA)
+   ========================================================================== */
+
+.hero {
+    background: linear-gradient(135deg, var(--bg-header) 0%, #1e3a8a 60%, #0369a1 100%);
+    color: var(--texto-claro);
+    padding: 5rem 5% 4rem 5%;
+    text-align: center;
+}
+
+.hero-conteudo {
+    max-width: 860px;
+    margin: 0 auto 3.5rem auto;
+}
+
+.hero-conteudo h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.03em;
+}
+
+.hero-conteudo p {
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Botão de Destaque CTA com Gradiente e Microinteração (Tarefa 2.5) */
+.btn-cta {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: var(--texto-claro);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0.95rem 2.25rem;
+    border: none;
+    border-radius: var(--raio-md);
+    text-decoration: none;
+    box-shadow: var(--sombra-botao);
+    cursor: pointer;
+    transition: var(--transicao-media);
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--sombra-botao-hover);
+    opacity: 0.96;
+}
+
+.hero h2 {
+    font-size: 1.75rem;
+    color: var(--texto-claro);
+    margin-bottom: 1.5rem;
+}
+
+/* Galeria Hero com CSS Scroll Snap Fluido (Tarefa 2.3) */
+.hero-destaques {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-destaques figure {
+    flex: 0 0 320px; /* Largura fixa de cada slide no carrossel */
+    scroll-snap-align: start;
+    background-color: var(--bg-card);
+    color: var(--texto-principal);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    transition: var(--transicao-media);
+}
+
+.hero-destaques figure:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hero-destaques img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.hero-destaques figcaption {
+    padding: 1.15rem;
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    line-height: 1.5;
+}
+
+.hero-destaques figcaption strong {
+    color: var(--cor-primaria);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================================================
+   4. SEÇÃO SOBRE NÓS & EQUIPE (Box Model & Microinterações: Tarefa 2.2 & 2.5)
+   ========================================================================== */
+
+/* Pilares Estratégicos (Missão, Visão e Valores) */
+.pilares {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.75rem;
+    margin-bottom: 4.5rem;
+}
+
+.pilares article {
+    background-color: var(--bg-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-md);
+    padding: 2rem 1.75rem;
+    box-shadow: var(--sombra-card);
+    transition: var(--transicao-media);
+    border-left: 4px solid var(--cor-primaria);
+}
+
+.pilares article:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-card-hover);
+    border-left-color: var(--cor-secundaria);
+    opacity: 0.98;
+}
+
+.pilares h3 {
+    font-size: 1.35rem;
+    color: var(--bg-header);
+    margin-bottom: 0.75rem;
+}
+
+.pilares p {
+    color: var(--texto-secundario);
+    font-size: 0.98rem;
+}
+
+/* Grade da Equipe de Especialistas */
+.equipe-container > h3 {
+    font-size: 1.85rem;
+    text-align: center;
+    color: var(--bg-header);
+    margin-bottom: 2.25rem;
+}
+
+.equipe-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.equipe-grade article {
+    background-color: var(--bg-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+    padding: 1.75rem;
+    text-align: center;
+    box-shadow: var(--sombra-card);
+    transition: var(--transicao-media);
+}
+
+.equipe-grade article:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-card-hover);
+    opacity: 0.99;
+}
+
+.equipe-grade img {
+    width: 140px;
+    height: 140px;
+    border-radius: var(--raio-full);
+    margin: 0 auto 1.25rem auto;
+    border: 3px solid var(--cor-primaria);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.equipe-grade h4 {
+    font-size: 1.25rem;
+    color: var(--bg-header);
+    margin-bottom: 0.35rem;
+}
+
+.equipe-grade .cargo {
+    color: var(--cor-primaria);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.equipe-grade p:last-child {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    line-height: 1.5;
+}
+
+
+/* ==========================================================================
+   5. CATÁLOGO DE SERVIÇOS & TABELA ZEBRADA (Tarefa 2.4 & 2.5)
+   ========================================================================== */
+
+/* Grade de Cartões de Serviços */
+.servicos-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4.5rem;
+}
+
+.servicos-grade article {
+    background-color: var(--bg-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-md);
+    padding: 2.25rem 1.75rem;
+    box-shadow: var(--sombra-card);
+    transition: var(--transicao-media);
+    text-align: left;
+}
+
+.servicos-grade article:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-card-hover);
+    opacity: 0.98;
+}
+
+/* Estilização e Microinteração de SVGs dos Serviços (Tarefa 2.4) */
+.icone-servico {
+    display: inline-block;
+    stroke: var(--cor-primaria);
+    fill: rgba(37, 99, 235, 0.12);
+    margin-bottom: 1.25rem;
+    transition: var(--transicao-media);
+}
+
+.servicos-grade article:hover .icone-servico {
+    stroke: var(--cor-secundaria);
+    fill: rgba(6, 182, 212, 0.25);
+    transform: scale(1.18) rotate(4deg);
+}
+
+.servicos-grade h3 {
+    font-size: 1.3rem;
+    color: var(--bg-header);
+    margin-bottom: 0.75rem;
+}
+
+.servicos-grade p {
+    font-size: 0.95rem;
+    color: var(--texto-secundario);
+    line-height: 1.6;
+}
+
+/* Tabela Zebrada Comparativa (Tarefa 2.4) */
+.comparativo-container > h3 {
+    font-size: 1.85rem;
+    text-align: center;
+    color: var(--bg-header);
+    margin-bottom: 1.75rem;
+}
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--raio-md);
+    box-shadow: var(--sombra-card);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    text-align: left;
+}
+
+table caption {
+    caption-side: bottom;
+    padding: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--texto-mutado);
+    text-align: center;
+    background-color: var(--bg-pagina);
+}
+
+th,
+td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--borda-suave);
+    font-size: 0.95rem;
+}
+
+/* Cabeçalho da Tabela */
+thead th {
+    background-color: var(--bg-header);
+    color: var(--texto-claro);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--cor-primaria);
+}
+
+/* Cabeçalhos de Linha (Infraestrutura, Segurança & Suporte) */
+tbody th[scope="row"] {
+    background-color: #f8fafc;
+    color: var(--bg-header);
+    font-weight: 700;
+    border-right: 1px solid var(--borda-suave);
+}
+
+/* Linhas Zebradas via :nth-child(even) (Tarefa 2.4) */
+tbody tr:nth-child(even) {
+    background-color: var(--bg-zebrado);
+}
+
+/* Feedback ao passar o mouse nas linhas da tabela :hover (Tarefa 2.4) */
+tbody tr:hover {
+    background-color: var(--bg-hover-tabela);
+    transition: background-color 0.2s ease;
+}
+
+/* Rodapé da Tabela */
+tfoot th,
+tfoot td {
+    background-color: #0f172a;
+    color: var(--texto-claro);
+    font-weight: 700;
+    border-top: 2px solid var(--cor-secundaria);
+}
+
+
+/* ==========================================================================
+   6. SEÇÃO BLOG & BADGES SOBREPOSTAS (Tarefa 2.3 & 2.5)
+   ========================================================================== */
+
+.blog-controles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    background-color: var(--bg-card);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--raio-md);
+    box-shadow: var(--sombra-card);
+}
+
+.blog-controles form {
+    flex: 1 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.blog-controles label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    white-space: nowrap;
+}
+
+.blog-controles nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.blog-controles nav a {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-secundario);
+    background-color: var(--bg-pagina);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-full);
+    text-decoration: none;
+    transition: var(--transicao-rapida);
+}
+
+.blog-controles nav a:hover {
+    color: var(--texto-claro);
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+    transform: translateY(-2px);
+}
+
+/* Grade de Artigos do Blog */
+.blog-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.blog-lista article {
+    background-color: var(--bg-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-card);
+    transition: var(--transicao-media);
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-lista article:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-card-hover);
+    opacity: 0.98;
+}
+
+/* Container Relativo para Badges Sobrepostas (Tarefa 2.3) */
+.capa-artigo {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--raio-sm);
+    margin-bottom: 1.25rem;
+}
+
+.capa-artigo img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.blog-lista article:hover .capa-artigo img {
+    transform: scale(1.04);
+}
+
+/* Etiqueta de Categoria Sobreposta Flutuante (Tarefa 2.3) */
+.capa-artigo .categoria {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(90deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: var(--texto-claro);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--raio-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    z-index: 10;
+}
+
+.meta-artigo {
+    font-size: 0.825rem;
+    color: var(--texto-mutado);
+    margin-bottom: 0.5rem;
+}
+
+.blog-lista h3 {
+    font-size: 1.25rem;
+    color: var(--bg-header);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.blog-lista p {
+    color: var(--texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.link-artigo {
+    display: inline-flex;
+    align-items: center;
+    color: var(--cor-primaria);
+    font-weight: 700;
+    font-size: 0.925rem;
+    text-decoration: none;
+    transition: var(--transicao-rapida);
+}
+
+.link-artigo:hover {
+    color: var(--cor-primaria-dark);
+    transform: translateX(4px);
+}
+
+
+/* ==========================================================================
+   7. FORMULÁRIO DE CONTATO (Tarefa 2.4: Estilização e :focus)
+   ========================================================================== */
+
+#contato {
+    background-color: #ffffff;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-card);
+    margin: 3rem auto 5rem auto;
+}
+
+.form-contato {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.campo-grupo {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.campo-grupo label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--bg-header);
+    margin-bottom: 0.4rem;
+}
+
+/* Modelagem dos Inputs, Select e Textarea (Box Model) */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--borda-campo);
+    border-radius: var(--raio-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--texto-principal);
+    background-color: var(--bg-card);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Feedback Visual Claro com a Pseudo-classe :focus (Tarefa 2.4) */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--borda-foco);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+}
+
+/* Botão de Envio do Formulário (Tarefa 2.5: Gradiente e Microinterações) */
+.btn-enviar {
+    display: block;
+    width: 100%;
+    background: linear-gradient(90deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: var(--texto-claro);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--raio-md);
+    cursor: pointer;
+    box-shadow: var(--sombra-botao);
+    transition: var(--transicao-media);
+}
+
+.btn-enviar:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: var(--sombra-botao-hover);
+    opacity: 0.96;
+}
+
+
+/* ==========================================================================
+   8. RODAPÉ E REDES SOCIAIS (Tarefa 2.1 & 2.4: SVGs & Pseudo-classes)
+   ========================================================================== */
+
+footer {
+    background-color: var(--bg-header);
+    color: var(--texto-claro);
+    padding: 4rem 5% 2rem 5%;
+    border-top: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+    max-width: 420px;
+}
+
+.footer-brand p {
+    color: var(--texto-mutado);
+    font-size: 0.925rem;
+    margin-top: 0.65rem;
+    line-height: 1.5;
+}
+
+.footer-social h3 {
+    font-size: 1.1rem;
+    color: var(--texto-claro);
+    margin-bottom: 0.85rem;
+}
+
+.redes-sociais {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+}
+
+/* Estilização dos Ícones SVG das Redes Sociais no Rodapé (Tarefa 2.4) */
+.icone-social {
+    fill: #94a3b8;
+    transition: var(--transicao-media);
+}
+
+.redes-sociais a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: var(--raio-full);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: var(--transicao-media);
+}
+
+/* Microinteração e mudança de cor no :hover dos SVGs (Tarefa 2.4 & 2.5) */
+.redes-sociais a:hover {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-ciano-claro);
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+.redes-sociais a:hover .icone-social {
+    fill: #ffffff;
+    transform: rotate(6deg);
+}
+
+/* Rodapé Inferior e Botão Voltar ao Topo */
+.footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--texto-mutado);
+}
+
+.btn-topo {
+    color: var(--cor-ciano-claro);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--raio-sm);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    transition: var(--transicao-rapida);
+}
+
+.btn-topo:hover {
+    color: #ffffff;
+    background-color: rgba(56, 189, 248, 0.15);
+    border-color: var(--cor-ciano-claro);
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================================================
+   9. RESPONSIVIDADE E DISPOSITIVOS MÓVEIS (DevTools Check: Tarefa 2.6)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .secao-padrao {
+        padding: 3.5rem 1rem;
+    }
+
+    .hero {
+        padding: 3.5rem 1rem 3rem 1rem;
+    }
+
+    .hero-destaques figure {
+        flex: 0 0 270px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}
